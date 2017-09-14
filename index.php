@@ -29,4 +29,52 @@
     include 'acceptform.php';
   }
 
+  class Cookie {
+    public $cookieName;
+    public $cookieValue;
+
+    private $cookieAcceptedTerms;
+
+
+    public function __construct() {
+      $termsResult = $this->checkIfCookiesAreAllowed();
+
+      if ($termsResult !== true) {
+        // The need to accept the terms
+        echo $this->displayAcceptFormForCookies();
+      }
+
+      else {
+        // We can set cookies
+        echo "<h3>We can set cookies!</h3>";
+      }
+    }
+
+    public function displayAcceptFormForCookies() {
+      $form = file_get_contents('acceptform.php');
+      return($form);
+    }
+
+    private function checkIfCookiesAreAllowed() {
+      if (ISSET($_COOKIE['accepted-terms'])) {
+        // The have the cookie
+        if ($_COOKIE['accepted-terms'] == true) {
+          // They have accepted the cookie
+          $this->cookieAcceptedTerms = true;
+        }
+
+        else {
+          $this->cookieAcceptedTerms = false;
+        }
+      }
+
+      else {
+        $this->cookieAcceptedTerms = false;
+      }
+
+      return($this->cookieAcceptedTerms);
+    }
+
+  }
+
 ?>
