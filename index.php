@@ -96,5 +96,4 @@
 
   echo $cookieForm;
 
-
 ?>
