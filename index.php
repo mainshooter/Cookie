@@ -13,7 +13,7 @@
 
       if ($termsResult !== true) {
         // The need to accept the terms
-        echo $this->getDisplayAcceptFormForCookies();
+        // echo $this->getDisplayAcceptFormForCookies();
       }
 
       else {
@@ -24,7 +24,7 @@
 
     /**
      * Gets the form we use to let clients accept our terms
-     * @return [type] [description]
+     * @return [string] [The content of the HTML page]
      */
     public function getDisplayAcceptFormForCookies() {
       $form = file_get_contents('acceptform.php');
@@ -72,15 +72,15 @@
         $this->cookieAcceptedTerms = false;
       }
 
-      header("Refresh:0");
+      $_COOKIE['accepted-terms'] = $this->cookieAcceptedTerms;
       // To show them the real website, we redirect
     }
 
   }
+  $CookieAllowedChecker = new CookieAllowedChecker();
+  $cookieForm = $CookieAllowedChecker->getDisplayAcceptFormForCookies();
 
 
-
-   $CookieAllowedChecker = new CookieAllowedChecker();
 
   if (ISSET($_POST['cookieAcceptation'])) {
     $CookieAllowedChecker->saveClientCookieTerms($_POST['cookieAcceptation']);
@@ -88,7 +88,13 @@
 
   if ($CookieAllowedChecker->checkIfCookiesAreAllowed()) {
     // Cookies are allowed
-    echo "<h1>Cookies zijn toegestaan!</h1>";
+    $cookieForm = "<h1>Cookies zijn toegestaan!</h1>";
   }
+  else {
+    $CookieAllowedChecker->getDisplayAcceptFormForCookies();
+  }
+
+  echo $cookieForm;
+
 
 ?>
