@@ -1,9 +1,6 @@
 <?php
 
-  class Cookie {
-    public $cookieName;
-    public $cookieValue;
-
+  class CookieAllowedChecker {
     private $cookieAcceptedTerms;
 
 
@@ -83,13 +80,13 @@
 
 
 
-   $Cookie = new Cookie();
+   $CookieAllowedChecker = new CookieAllowedChecker();
 
   if (ISSET($_POST['cookieAcceptation'])) {
-    $Cookie->saveClientCookieTerms($_POST['cookieAcceptation']);
+    $CookieAllowedChecker->saveClientCookieTerms($_POST['cookieAcceptation']);
   }
 
-  if ($Cookie->checkIfCookiesAreAllowed()) {
+  if ($CookieAllowedChecker->checkIfCookiesAreAllowed()) {
     // Cookies are allowed
     echo "<h1>Cookies zijn toegestaan!</h1>";
   }
