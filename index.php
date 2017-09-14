@@ -71,6 +71,7 @@
 
       else {
         // The don't want cookies
+        setcookie('accepted-terms', false, time() + 10);
         $this->cookieAcceptedTerms = false;
       }
 
@@ -79,6 +80,8 @@
     }
 
   }
+
+
 
    $Cookie = new Cookie();
 
