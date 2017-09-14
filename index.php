@@ -13,7 +13,7 @@
   }
 
   else {
-    // Client is here for the first time
+    // Client is here for the first time, so the need to accept our coockie terms
     displayCookieAcceptForm();
   }
 
